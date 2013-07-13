@@ -4,6 +4,7 @@
 #include "ani_prototype.h"
 #include "gl_helper.h"
 
+
 #if SR_USE_PCH == 0
 #include <vector>
 #include <algorithm>
@@ -176,7 +177,6 @@ void SimpleAniNode::draw()
     //float scale = CCDirector::sharedDirector()->getContentScaleFactor();
     //kmGLScalef(scale, scale, 1);
 
-	//색깔까지 지원에 넣으면 아작난다 -_- 좀 고생해서 추적해봐야될듯
 	ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position | kCCVertexAttribFlag_TexCoords);
 
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -184,7 +184,6 @@ void SimpleAniNode::draw()
     AniQuad &first_quad = quad_list[0];
     glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].x);
     glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].s);
-    //glVertexAttribPointer(kCCVertexAttrib_Color, 4, GL_UNSIGNED_BYTE, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].r);
     glDrawElements(GL_TRIANGLES, index_list.size(), GL_UNSIGNED_SHORT, &index_list[0]);
 
     //CCDirector::sharedDirector()->setDepthTest(true);
@@ -192,6 +191,68 @@ void SimpleAniNode::draw()
 
 	CHECK_GL_ERROR_DEBUG();
 	CC_INCREMENT_GL_DRAWS(1);
+}
+
+RGBAAniNode::RGBAAniNode()
+	: rt_(nullptr),
+	ani_node_(nullptr),
+	tex_height_(0),
+	tex_width_(0)
+{
+}
+RGBAAniNode::~RGBAAniNode()
+{
+	ani_node_->retain();
+}
+
+bool RGBAAniNode::initWithPrototype(AniPrototype *prototype, int w, int h)
+{
+    scheduleUpdate();
+
+    int tex_width = w * (int)CC_CONTENT_SCALE_FACTOR();
+    int tex_height = h * (int)CC_CONTENT_SCALE_FACTOR();
+	rt_ = CCRenderTexture::create(tex_width, tex_height);
+	this->addChild(rt_);
+    rt_->getSprite()->getTexture()->setAntiAliasTexParameters();
+
+	//rt + simple => rgba support
+	ani_node_ = new SimpleAniNode();
+	ani_node_->initWithPrototype(prototype);
+
+	tex_width_ = tex_width;
+	tex_height_ = tex_height;
+	
+	return true;
+}
+
+void RGBAAniNode::update(float dt)
+{
+	ani_node_->Update(dt);
+}
+void RGBAAniNode::draw()
+{
+	if(isVisible() == false) {
+		return;
+	}
+	if(getOpacity() == 0) {
+		// 완전투명==그릴필요 있나?
+		return;
+	}
+
+	rt_->beginWithClear(0.0f, 0.0f, 0.0f, 0.0f);
+	kmGLPushMatrix();
+	kmGLTranslatef(tex_width_ * 0.5f, tex_height_ * 0.5f, 0);
+	ani_node_->draw();
+	kmGLPopMatrix();
+	rt_->end();
+	
+	CCSprite *sprite = rt_->getSprite();
+	sprite->setColor(getColor());
+	ccBlendFunc blend_func = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
+    sprite->setBlendFunc(blend_func);
+    sprite->setOpacity(getOpacity());
+
+	CHECK_GL_ERROR_DEBUG();
 }
 
 }	// namespace sora

@@ -30,19 +30,16 @@ struct AniQuad {
 	AniVertex vert[4];
 };
 
-
-class SimpleAniNode : public AniInterface, public cocos2d::CCNodeRGBA {
+class SimpleAniNode : public AniInterface, public cocos2d::CCNode {
 public:
     SimpleAniNode();
     virtual ~SimpleAniNode();
 
 	bool initWithPrototype(AniPrototype *prototype);
 
-private:
     virtual void update(float dt);
     virtual void draw();
 
-	//ani 구현부
 public:
 	virtual void Resume() { ani_->Resume(); }
 	virtual void Pause() { ani_->Pause(); }
@@ -68,6 +65,42 @@ protected:
 
 private:
 	std::unique_ptr<Ani> ani_;
+};
+
+class RGBAAniNode : public AniInterface, public cocos2d::CCNodeRGBA {
+public:
+	RGBAAniNode();
+	virtual ~RGBAAniNode();
+
+	bool initWithPrototype(AniPrototype *prototype, int w=128, int h=128);
+
+	virtual void update(float dt);
+	virtual void draw();
+
+private:
+	cocos2d::CCRenderTexture *rt_;
+	SimpleAniNode *ani_node_;
+
+	int tex_width_;
+	int tex_height_;
+
+public:
+	virtual void Resume() { ani_node_->Resume(); }
+	virtual void Pause() { ani_node_->Pause(); }
+	virtual bool IsPaused() const { return ani_node_->IsPaused(); }
+
+	virtual void Update(float dt) { ani_node_->Update(dt); }
+	
+	virtual void SetPlayParam(const AniPlayParam &param) { ani_node_->SetPlayParam(param); }
+	virtual const AniPlayParam &GetPlayParam() const { return ani_node_->GetPlayParam(); }
+
+	virtual void ForceGoTo(int index) { ani_node_->ForceGoTo(index); }
+	virtual void MoveFirstFrame() { ani_node_->MoveFirstFrame(); }
+	virtual void MoveLastFrame() { ani_node_->MoveLastFrame(); }
+
+	virtual void GoNextFrame() { ani_node_->GoNextFrame(); }
+	virtual bool IsEnd() const { return ani_node_->IsEnd(); }
+	
 };
 
 }	// namespace sora

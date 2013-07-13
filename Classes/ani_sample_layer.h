@@ -2,7 +2,7 @@
 #pragma once
 
 namespace sora {;
-class SimpleAniNode;
+struct AniInterface;
 }
 
 class AniSampleLayer : public cocos2d::CCLayer {
@@ -21,7 +21,8 @@ private:
 		kPauseAni,
 		kFrameLimitAni,
 		kSpeedAni,
+		kRGBAAni,
 		kAniCount,
 	};
-	std::array<sora::SimpleAniNode*, kAniCount> ani_list_;
+	std::array<sora::AniInterface*, kAniCount> ani_list_;
 };
