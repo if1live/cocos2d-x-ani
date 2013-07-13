@@ -7,6 +7,12 @@
     <Filter Include="Classes">
       <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ani">
+      <UniqueIdentifier>{6f414cca-92b0-492a-81ab-8e6f64de8dd4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="support">
+      <UniqueIdentifier>{3f0c51f9-5866-4864-8472-38b0c9f93d02}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -18,6 +24,45 @@
     <ClCompile Include="..\Classes\HelloWorldScene.cpp">
       <Filter>Classes</Filter>
     </ClCompile>
+    <ClCompile Include="..\Classes\ani_prototype.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ani_reader.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ani_resource.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ani_writer.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ani.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ani_data.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ani_frame.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ani_manager.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ani_node.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ani_parser.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\stdafx.cpp">
+      <Filter>support</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\gl_helper.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\string_util.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h">
@@ -28,6 +73,57 @@
     </ClInclude>
     <ClInclude Include="..\Classes\HelloWorldScene.h">
       <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani_prototype.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani_reader.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani_resource.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani_writer.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani_data.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani_frame.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani_globals.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani_manager.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani_node.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani_parser.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\stdafx.h">
+      <Filter>support</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\gl_helper.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\singleton.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\string_util.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\assert_include.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\arch.h">
+      <Filter>ani</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

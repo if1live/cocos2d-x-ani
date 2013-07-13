@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "AppDelegate.h"
 #include "HelloWorldScene.h"
 
