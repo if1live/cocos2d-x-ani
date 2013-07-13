@@ -60,6 +60,10 @@ SimpleAniNode::~SimpleAniNode()
 {
 }
 
+bool SimpleAniNode::initWithPrototype(AniPrototype *prototype, int w, int h)
+{
+	return initWithPrototype(prototype);
+}
 bool SimpleAniNode::initWithPrototype(AniPrototype *prototype)
 {
 	//쉐이더 미리 설정
@@ -205,6 +209,10 @@ RGBAAniNode::~RGBAAniNode()
 	ani_node_->retain();
 }
 
+bool RGBAAniNode::initWithPrototype(AniPrototype *prototype)
+{
+	return initWithPrototype(prototype, 128, 128);
+}
 bool RGBAAniNode::initWithPrototype(AniPrototype *prototype, int w, int h)
 {
     scheduleUpdate();

@@ -23,14 +23,14 @@ void AniSampleLayer::update(float dt)
 	elapsed += dt;
 
 	if(elapsed > 2.0f) {
-		AniInterface *pause_ani = ani_list_[kPauseAni];
+		AniNode *pause_ani = ani_list_[kPauseAni];
 		if(pause_ani->IsPaused() == false) {
 			pause_ani->Pause();
 		} else {
 			pause_ani->Resume();
 		}
 
-		AniInterface *speed_ani = ani_list_[kSpeedAni];
+		AniNode *speed_ani = ani_list_[kSpeedAni];
 		AniPlayParam param = speed_ani->GetPlayParam();
 		if(param.speed == 1.0f) {
 			param.speed = 0.5f;
@@ -59,7 +59,7 @@ bool AniSampleLayer::init()
 	AniManager &ani_mgr = AniManager::GetInstance();
 	{
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/prop01_movie-clip.xml");
-		SimpleAniNode *ani_node = new SimpleAniNode();
+		AniNode *ani_node = new SimpleAniNode();
 		ani_node->initWithPrototype(ani_prototype_1);
 		ani_node->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 		this->addChild(ani_node);
@@ -69,7 +69,7 @@ bool AniSampleLayer::init()
 	}
 	{
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/prop02_movie-clip.xml");
-		SimpleAniNode *ani_node = new SimpleAniNode();
+		AniNode *ani_node = new SimpleAniNode();
 		ani_node->initWithPrototype(ani_prototype_1);
 		ani_node->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 		ani_node->setPosition(ani_node->getPosition() + ccp(100, 0));
@@ -86,7 +86,7 @@ bool AniSampleLayer::init()
 
 	{
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/prop02_movie-clip.xml");
-		SimpleAniNode *ani_node = new SimpleAniNode();
+		AniNode *ani_node = new SimpleAniNode();
 		ani_node->initWithPrototype(ani_prototype_1);
 		ani_node->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 		ani_node->setPosition(ani_node->getPosition() + ccp(-100, 0));
@@ -98,7 +98,7 @@ bool AniSampleLayer::init()
 	}
 	{
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/prop01_movie-clip.xml");
-		SimpleAniNode *ani_node = new SimpleAniNode();
+		AniNode *ani_node = new SimpleAniNode();
 		ani_node->initWithPrototype(ani_prototype_1);
 		ani_node->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 		ani_node->setPosition(ani_node->getPosition() + ccp(0, -100));
@@ -116,7 +116,7 @@ bool AniSampleLayer::init()
 
 	{
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/prop01_movie-clip.xml");
-		SimpleAniNode *ani_node = new SimpleAniNode();
+		AniNode *ani_node = new SimpleAniNode();
 		ani_node->initWithPrototype(ani_prototype_1);
 		ani_node->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 		ani_node->setPosition(ani_node->getPosition() + ccp(+100, +100));
@@ -129,8 +129,8 @@ bool AniSampleLayer::init()
 
 	{
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/prop01_movie-clip.xml");
-		RGBAAniNode *ani_node = new RGBAAniNode();
-		ani_node->initWithPrototype(ani_prototype_1);
+		AniNode *ani_node = new RGBAAniNode();
+		ani_node->initWithPrototype(ani_prototype_1, 128, 128);
 		ani_node->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 		ani_node->setPosition(ani_node->getPosition() + ccp(0, +100));
 

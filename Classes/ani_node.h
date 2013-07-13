@@ -30,12 +30,22 @@ struct AniQuad {
 	AniVertex vert[4];
 };
 
-class SimpleAniNode : public AniInterface, public cocos2d::CCNode {
+class AniNode : public cocos2d::CCNodeRGBA, public AniInterface {
+public:
+	AniNode() {}
+	virtual ~AniNode() {}
+
+	virtual bool initWithPrototype(AniPrototype *prototype) = 0;
+	virtual bool initWithPrototype(AniPrototype *prototype, int w, int h) = 0;
+};
+
+class SimpleAniNode : public AniNode {
 public:
     SimpleAniNode();
     virtual ~SimpleAniNode();
 
-	bool initWithPrototype(AniPrototype *prototype);
+	virtual bool initWithPrototype(AniPrototype *prototype, int w, int h);
+	virtual bool initWithPrototype(AniPrototype *prototype);
 
     virtual void update(float dt);
     virtual void draw();
@@ -67,12 +77,13 @@ private:
 	std::unique_ptr<Ani> ani_;
 };
 
-class RGBAAniNode : public AniInterface, public cocos2d::CCNodeRGBA {
+class RGBAAniNode : public AniNode {
 public:
 	RGBAAniNode();
 	virtual ~RGBAAniNode();
 
-	bool initWithPrototype(AniPrototype *prototype, int w=128, int h=128);
+	virtual bool initWithPrototype(AniPrototype *prototype, int w, int h);
+	virtual bool initWithPrototype(AniPrototype *prototype);
 
 	virtual void update(float dt);
 	virtual void draw();
