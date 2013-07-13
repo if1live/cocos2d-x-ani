@@ -2,7 +2,7 @@
 #pragma once
 
 namespace sora {;
-class AniNode;
+class SimpleAniNode;
 }
 
 class AniSampleLayer : public cocos2d::CCLayer {
@@ -23,5 +23,5 @@ private:
 		kSpeedAni,
 		kAniCount,
 	};
-	std::array<sora::AniNode*, kAniCount> ani_list_;
+	std::array<sora::SimpleAniNode*, kAniCount> ani_list_;
 };

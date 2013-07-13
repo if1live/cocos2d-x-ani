@@ -51,158 +51,50 @@ void AniVertex::SetVertex(float x, float y, cocos2d::CCSpriteFrame *frame, Verte
     a = 255;
 }
 
-AniNode::AniNode()
-    : rt_(NULL)
+SimpleAniNode::SimpleAniNode()
 {
 }
 
-AniNode::~AniNode()
+SimpleAniNode::~SimpleAniNode()
 {
-    if(rt_ != NULL) {
-        rt_->release();
-        rt_ = NULL;
-    }
 }
 
-bool AniNode::initWithPrototype(AniPrototype *prototype)
+bool SimpleAniNode::initWithPrototype(AniPrototype *prototype)
 {
-    int default_tex_width = 128;
-    int default_tex_height = 128;
-    return initWithPrototype(prototype, default_tex_width, default_tex_height);
-}
+	//쉐이더 미리 설정
+	CCGLProgram *prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture);
+	setShaderProgram(prog);
 
-bool AniNode::initWithPrototype(AniPrototype *prototype, int tex_w, int tex_h)
-{
-	scheduleUpdate();
-    //orig ani를 복제해서 ani로 대신쓴다. 프로토타입 패턴의 형태를 그냥 갖다쓰자
+    scheduleUpdate();
+
+	//orig ani를 복제해서 ani로 대신쓴다. 프로토타입 패턴의 형태를 그냥 갖다쓰자
     //중간에 파서같은걸 추가로 거치는게 더 
     this->set_ani(new Ani(prototype->Create()));
 
-    //애니메이션이 얼마나 커질지를 알수가 없다. 그냥 감으로 텍스쳐를 생성해야 하나?
-    rt_ = new CCRenderTexture();
-    int tex_width = 0;
-    int tex_height = 0;
-    tex_width = tex_w * 2;
-    tex_height = tex_h * 2;
-    /*
-    if(qb::Device::GetInstance().IsIPhoneFamily()) {
-    tex_width = tex_w * (int)CC_CONTENT_SCALE_FACTOR();
-    tex_height = tex_h * (int)CC_CONTENT_SCALE_FACTOR();
-    } else {
-    tex_width = tex_w * 2;
-    tex_height = tex_h * 2;
-    }
-    */
-    //rt_->initWithWidthAndHeightWithoutDepth(tex_width, tex_height, kCCTexture2DPixelFormat_RGBA8888);
-    rt_->initWithWidthAndHeight(tex_width, tex_height, kCCTexture2DPixelFormat_RGBA8888);
-    this->addChild(rt_);
-    rt_->getSprite()->getTexture()->setAntiAliasTexParameters();
-
-    //상속받은것의 경우 추가 작업을 시행
-    Init(tex_width, tex_height);
-
-    return true;
+	return true;
 }
 
-AniPrototype *AniNode::prototype()
+AniPrototype *SimpleAniNode::prototype()
 {
     return ani_->prototype();
 }
 
-void AniNode::update(float dt)
+void SimpleAniNode::update(float dt)
 {
     ani()->Update(dt);
 }
 
-void AniNode::draw()
+void SimpleAniNode::draw()
 {
-    //RT사용해서 렌더링하는게 잘 안된다. 일단 빼서 렌더링하고 해놓고 추후 고치기
-    DrawOnMainRT();
+	if(isVisible() == false) {
+		return;
+	}
 
-    CCSprite *sprite = rt_->getSprite();
-    /*
-    //rt갱신은 draw에하는게 프로파일링에는 더 맞겟지?
-
-    if(sprite->isVisible() == true) {
-    //rt_->beginWithClear(1, 1, 0, 1);
-    //rt_->beginWithClear(0, 0, 0, 0);
-    kmGLPushMatrix();
-
-    static bool init = false;
-    static kmMat4 matrix_data;
-    if(init == false) {
-    init = true;
-    kmGLGetMatrix(KM_GL_MODELVIEW, &matrix_data);
-    }
-
-    kmGLLoadIdentity();
-    float scale_x = matrix_data.mat[0];
-    float scale_y = matrix_data.mat[5];
-    kmGLScalef(scale_x, scale_y, 1);
-
-    float tex_width = rt_->getSprite()->getTexture()->getContentSize().width;
-    float tex_height = rt_->getSprite()->getTexture()->getContentSize().height;
-    IUASSERT(tex_width > 0);
-    IUASSERT(tex_height > 0);
-
-    if(CC_CONTENT_SCALE_FACTOR() == 2.0f) {
-    kmGLTranslatef(tex_width, tex_height, 0);
-    } else {
-    kmGLTranslatef(tex_width/2.0f, tex_height/2.0f, 0);
-    }
-
-    DrawOnMainRT();
-    kmGLPopMatrix();
-    //rt_->end();
-    }
-    */
-
-    sprite->setColor(getColor());
-    //손가락은 이거 커면 잘 나오는데 다른 일반 애니는 이거 켜면 경계가 이상해진다?
-    /*
-    if(alpha_ == 255) {
-    //m_sBlendFunc.src = CC_BLEND_SRC;
-    //m_sBlendFunc.dst = CC_BLEND_DST;
-    //ccBlendFunc blend_func = { CC_BLEND_SRC, CC_BLEND_DST };
-    ccBlendFunc blend_func = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
-    sprite->setBlendFunc(blend_func);
-    } else {
-    ccBlendFunc blend_func = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
-    sprite->setBlendFunc(blend_func);
-    }
-    */
-    ccBlendFunc blend_func = { GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA };
-    sprite->setBlendFunc(blend_func);
-    sprite->setOpacity(getOpacity());
-
-    if(getOpacity() == 0) {
-        sprite->setVisible(false);
-    } else {
-        sprite->setVisible(true);
-    }
-}
-
-//////////////////////////
-
-SimpleAniNode::SimpleAniNode()
-{
-}
-SimpleAniNode::~SimpleAniNode()
-{
-
-}
-
-void SimpleAniNode::Init(int tex_w, int tex_h)
-{
-}
-
-void SimpleAniNode::SimpleDraw(Ani *ani)
-{
-    vector<AniQuad> quad_list;
+	vector<AniQuad> quad_list;
     vector<unsigned short> index_list;
 
-    IUASSERT(ani != NULL);
-    Ani::ResDictType &res_dict = ani->GetResourceDict();
+    IUASSERT(ani() != NULL);
+    Ani::ResDictType &res_dict = ani()->GetResourceDict();
 
     vector<AniResource> res_list;
     for(auto it = res_dict.begin(), e = res_dict.end() ; it != e ; ++it) {
@@ -267,27 +159,25 @@ void SimpleAniNode::SimpleDraw(Ani *ani)
     }
 
     ////////////////////////////////////
+	CC_NODE_DRAW_SETUP();
 
     CCSpriteFrame *frame = (res_dict.begin())->second.frame();
     IUASSERT(frame != NULL);
     GLuint tex_id = frame->getTexture()->getName();
-    glBindTexture(GL_TEXTURE_2D, tex_id);
+    ccGLBindTexture2D(tex_id);
 
     //Remember, No Old GL.
     //ani는 low-level이기떄문에 retina같은거 수동으로 통제해야됨
-
+	
     kmGLPushMatrix();
+	//깊이를 씹고 그려도 문제없다. 어차피 순서대로 그리는거니까
+    //CCDirector::sharedDirector()->setDepthTest(false);
+
     //float scale = CCDirector::sharedDirector()->getContentScaleFactor();
     //kmGLScalef(scale, scale, 1);
 
-    //색깔까지 지원에 넣으면 아작난다 -_- 좀 고생해서 추적해봐야될듯
-    CCGLProgram *prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture);
-    prog->use();
-	prog->setUniformsForBuiltins();
+	//색깔까지 지원에 넣으면 아작난다 -_- 좀 고생해서 추적해봐야될듯
 	ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position | kCCVertexAttribFlag_TexCoords);
-
-    //깊이를 씹고 그려도 문제없다
-    CCDirector::sharedDirector()->setDepthTest(false);
 
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
@@ -297,16 +187,11 @@ void SimpleAniNode::SimpleDraw(Ani *ani)
     //glVertexAttribPointer(kCCVertexAttrib_Color, 4, GL_UNSIGNED_BYTE, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].r);
     glDrawElements(GL_TRIANGLES, index_list.size(), GL_UNSIGNED_SHORT, &index_list[0]);
 
-    CCDirector::sharedDirector()->setDepthTest(true);
+    //CCDirector::sharedDirector()->setDepthTest(true);
     kmGLPopMatrix();
 
 	CHECK_GL_ERROR_DEBUG();
-
+	CC_INCREMENT_GL_DRAWS(1);
 }
 
-void SimpleAniNode::DrawOnMainRT()
-{
-    SimpleDraw(ani());	
-}
-
-}
+}	// namespace sora

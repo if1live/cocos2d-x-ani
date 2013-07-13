@@ -31,14 +31,12 @@ struct AniQuad {
 };
 
 
-class AniNode : public AniInterface, public cocos2d::CCNodeRGBA {
+class SimpleAniNode : public AniInterface, public cocos2d::CCNodeRGBA {
 public:
-    AniNode();
-    virtual ~AniNode();
+    SimpleAniNode();
+    virtual ~SimpleAniNode();
 
-    bool initWithPrototype(AniPrototype *prototype, int tex_w, int tex_h);
 	bool initWithPrototype(AniPrototype *prototype);
-	virtual void Init(int tex_w, int tex_h) = 0;
 
 private:
     virtual void update(float dt);
@@ -68,28 +66,8 @@ protected:
 	Ani *ani() { return ani_.get(); }
 	void set_ani(Ani *ani) { ani_.reset(ani); }
 
-	virtual void DrawOnMainRT() = 0;
-
 private:
 	std::unique_ptr<Ani> ani_;
-
-	//알패를 적용하기 위해서 어쨋든 rt는 거쳐야한다
-	cocos2d::CCRenderTexture *rt_;
 };
 
-
-class SimpleAniNode : public AniNode {
-public:
-	SimpleAniNode();
-	virtual ~SimpleAniNode();
-
-	static void SimpleDraw(Ani *ani);
-
-	//node 구현부
-public:
-	virtual void Init(int tex_w, int tex_h);
-private:
-	virtual void DrawOnMainRT();
-};
-
-}
+}	// namespace sora
