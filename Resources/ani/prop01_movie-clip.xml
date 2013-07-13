@@ -1,0 +1,109 @@
+<?xml version="1.0" ?>
+<animation fps="60" frameFileName="prop01-hd.plist" textureFileName="prop01-hd.png">
+	<frames numFrames="25">
+		<frame number="0">
+			<show id="6" matrix="1.0 -0.0 -31.15 -0.0 1.0 -90.1 0.0 0.0 1.0" name="prop01_movie-clip0.png" z="10"/>
+			<show id="7" matrix="1.0 -0.0 -2.75 -0.0 1.0 -60.0 0.0 0.0 1.0" name="prop01_movie-clip1.png" z="11"/>
+		</frame>
+		<frame number="1">
+			<apply id="6" matrix="1.0 -0.0 -31.15 -0.0 0.994 -89.15 0.0 0.0 1.0"/>
+			<apply id="7" matrix="1.0 -0.0 -2.75 -0.0 0.994 -59.2306 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="2">
+			<apply id="6" matrix="1.0 -0.0 -31.15 -0.0 0.988 -88.3 0.0 0.0 1.0"/>
+			<apply id="7" matrix="1.0 -0.0 -2.75 -0.0 0.988 -58.5612 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="3">
+			<apply id="6" matrix="1.0 -0.0 -31.15 -0.0 0.983 -87.35 0.0 0.0 1.0"/>
+			<apply id="7" matrix="1.0 -0.0 -2.75 -0.0 0.983 -57.7617 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="4">
+			<apply id="6" matrix="1.0 -0.0 -31.15 -0.0 0.977 -86.45 0.0 0.0 1.0"/>
+			<apply id="7" matrix="1.0 -0.0 -2.75 -0.0 0.977 -57.0423 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="5">
+			<apply id="6" matrix="1.0 -0.0 -31.15 -0.0 0.971 -85.5 0.0 0.0 1.0"/>
+			<apply id="7" matrix="1.0 -0.0 -2.75 -0.0 0.971 -56.2729 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="6">
+			<apply id="6" matrix="1.0 -0.0 -31.15 -0.0 0.965 -84.65 0.0 0.0 1.0"/>
+			<apply id="7" matrix="1.0 -0.0 -2.75 -0.0 0.965 -55.6035 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="7">
+			<apply id="6" matrix="1.0 -0.0 -31.15 -0.0 0.959 -83.7 0.0 0.0 1.0"/>
+			<apply id="7" matrix="1.0 -0.0 -2.75 -0.0 0.959 -54.8341 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="8">
+			<apply id="6" matrix="1.0 -0.0 -31.15 -0.0 0.953 -82.8 0.0 0.0 1.0"/>
+			<apply id="7" matrix="1.0 -0.0 -2.75 -0.0 0.953 -54.1147 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="9">
+			<apply id="6" matrix="1.009 -0.0 -31.5 -0.0 0.953 -82.8 0.0 0.0 1.0"/>
+			<hide id="7"/>
+			<show id="8" matrix="1.009 -0.0 -2.8444 -0.0 0.953 -52.304 0.0 0.0 1.0" name="prop01_movie-clip2.png" z="11"/>
+		</frame>
+		<frame number="10">
+			<apply id="6" matrix="1.019 -0.0 -31.85 -0.0 0.953 -82.8 0.0 0.0 1.0"/>
+			<apply id="8" matrix="1.019 -0.0 -2.9104 -0.0 0.953 -52.304 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="11">
+			<apply id="6" matrix="1.028 -0.0 -32.2 -0.0 0.953 -82.8 0.0 0.0 1.0"/>
+			<hide id="8"/>
+			<show id="9" matrix="1.028 -0.0 -3.0048 -4.23217016987e-16 0.953 -51.01745 0.0 0.0 1.0" name="prop01_movie-clip3.png" z="11"/>
+		</frame>
+		<frame number="12">
+			<apply id="6" matrix="1.038 -0.0 -32.55 -0.0 0.953 -82.8 0.0 0.0 1.0"/>
+			<apply id="9" matrix="1.038 -0.0 -3.0708 -4.23217016987e-16 0.953 -51.01745 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="13">
+			<apply id="6" matrix="1.047 -0.0 -32.9 -0.0 0.953 -82.8 0.0 0.0 1.0"/>
+			<hide id="9"/>
+			<show id="10" matrix="1.047 -0.0 -3.1652 -0.0 0.953 -49.9215 0.0 0.0 1.0" name="prop01_movie-clip4.png" z="11"/>
+		</frame>
+		<frame number="14">
+			<apply id="6" matrix="1.057 -0.0 -33.2 -0.0 0.953 -82.8 0.0 0.0 1.0"/>
+			<apply id="10" matrix="1.057 -0.0 -3.1812 -0.0 0.953 -49.9215 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="15">
+			<apply id="6" matrix="1.066 -0.0 -33.5 -0.0 0.953 -82.8 0.0 0.0 1.0"/>
+			<apply id="10" matrix="1.066 -0.0 -3.2256 -0.0 0.953 -49.9215 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="16">
+			<apply id="6" matrix="1.076 -0.0 -33.9 -0.0 0.953 -82.8 0.0 0.0 1.0"/>
+			<hide id="10"/>
+			<show id="11" matrix="1.076 -0.0 -3.3416 -0.0 0.953 -54.1147 0.0 0.0 1.0" name="prop01_movie-clip1.png" z="11"/>
+		</frame>
+		<frame number="17">
+			<apply id="6" matrix="1.066 -0.0 -33.55 -0.0 0.959 -83.7 0.0 0.0 1.0"/>
+			<apply id="11" matrix="1.066 -0.0 -3.2756 -0.0 0.959 -54.8341 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="18">
+			<apply id="6" matrix="1.057 -0.0 -33.2 -0.0 0.965 -84.6 0.0 0.0 1.0"/>
+			<apply id="11" matrix="1.057 -0.0 -3.1812 -0.0 0.965 -55.5535 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="19">
+			<apply id="6" matrix="1.047 -0.0 -32.85 -0.0 0.971 -85.5 0.0 0.0 1.0"/>
+			<apply id="11" matrix="1.047 -0.0 -3.1152 -0.0 0.971 -56.2729 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="20">
+			<apply id="6" matrix="1.038 -0.0 -32.5 -0.0 0.977 -86.5 0.0 0.0 1.0"/>
+			<apply id="11" matrix="1.038 -0.0 -3.0208 -0.0 0.977 -57.0923 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="21">
+			<apply id="6" matrix="1.028 -0.0 -32.2 -0.0 0.983 -87.4 0.0 0.0 1.0"/>
+			<apply id="11" matrix="1.028 -0.0 -3.0048 -0.0 0.983 -57.8117 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="22">
+			<apply id="6" matrix="1.019 -0.0 -31.85 -0.0 0.988 -88.3 0.0 0.0 1.0"/>
+			<apply id="11" matrix="1.019 -0.0 -2.9104 -0.0 0.988 -58.5612 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="23">
+			<apply id="6" matrix="1.009 -0.0 -31.5 -0.0 0.994 -89.2 0.0 0.0 1.0"/>
+			<apply id="11" matrix="1.009 -0.0 -2.8444 -0.0 0.994 -59.2806 0.0 0.0 1.0"/>
+		</frame>
+		<frame number="24">
+			<apply id="6" matrix="1.0 -0.0 -31.15 -0.0 1.0 -90.1 0.0 0.0 1.0"/>
+			<apply id="11" matrix="1.0 -0.0 -2.75 -0.0 1.0 -60.0 0.0 0.0 1.0"/>
+		</frame>
+	</frames>
+</animation>

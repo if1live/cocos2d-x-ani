@@ -246,8 +246,8 @@ glm::mat3 AniParser::Mat3ToMat4(const glm::mat3 &input, AniDeviceType dev_type)
 
     //디바이스 마다 행렬크기 미묘하게달라지는데 내가 뭘 짯나 기억이 안난다...
     //리펙토링 하면서 다시 확인하기
-	float scale = 2.0f;
-    /*XXX
+	
+	float scale = 0.5f;
 	switch(dev_type) {
 	case kAniDeviceSD:
 		scale = 0.5f;
@@ -266,7 +266,6 @@ glm::mat3 AniParser::Mat3ToMat4(const glm::mat3 &input, AniDeviceType dev_type)
 		IUASSERT(!"Do not reach");
 		break;
 	}
-    */
 
     mat3 m = input;
     m[2][0] *= scale;

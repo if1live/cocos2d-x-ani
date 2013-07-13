@@ -125,6 +125,7 @@ xcopy /Y /Q "$(ProjectDir)..\ext\cocos2dx\external\libwebsockets\win32\lib\*.*" 
     </PreLinkEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\Classes\angle.cpp" />
     <ClCompile Include="..\Classes\ani.cpp" />
     <ClCompile Include="..\Classes\ani_data.cpp" />
     <ClCompile Include="..\Classes\ani_frame.cpp" />
@@ -134,18 +135,29 @@ xcopy /Y /Q "$(ProjectDir)..\ext\cocos2dx\external\libwebsockets\win32\lib\*.*" 
     <ClCompile Include="..\Classes\ani_prototype.cpp" />
     <ClCompile Include="..\Classes\ani_reader.cpp" />
     <ClCompile Include="..\Classes\ani_resource.cpp" />
+    <ClCompile Include="..\Classes\ani_sample_layer.cpp" />
     <ClCompile Include="..\Classes\ani_writer.cpp" />
     <ClCompile Include="..\Classes\AppDelegate.cpp" />
+    <ClCompile Include="..\Classes\file_helper.cpp" />
     <ClCompile Include="..\Classes\gl_helper.cpp" />
     <ClCompile Include="..\Classes\HelloWorldScene.cpp" />
+    <ClCompile Include="..\Classes\math_helper.cpp" />
     <ClCompile Include="..\Classes\stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="..\Classes\string_util.cpp" />
+    <ClCompile Include="..\Classes\tinyxml\tinystr.cpp" />
+    <ClCompile Include="..\Classes\tinyxml\tinyxml.cpp" />
+    <ClCompile Include="..\Classes\tinyxml\tinyxmlerror.cpp" />
+    <ClCompile Include="..\Classes\tinyxml\tinyxmlparser.cpp" />
+    <ClCompile Include="..\Classes\xml_node.cpp" />
+    <ClCompile Include="..\Classes\xml_reader.cpp" />
+    <ClCompile Include="..\Classes\xml_writer.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Classes\angle.h" />
     <ClInclude Include="..\Classes\ani.h" />
     <ClInclude Include="..\Classes\ani_data.h" />
     <ClInclude Include="..\Classes\ani_frame.h" />
@@ -156,15 +168,27 @@ xcopy /Y /Q "$(ProjectDir)..\ext\cocos2dx\external\libwebsockets\win32\lib\*.*" 
     <ClInclude Include="..\Classes\ani_prototype.h" />
     <ClInclude Include="..\Classes\ani_reader.h" />
     <ClInclude Include="..\Classes\ani_resource.h" />
+    <ClInclude Include="..\Classes\ani_sample_layer.h" />
     <ClInclude Include="..\Classes\ani_writer.h" />
     <ClInclude Include="..\Classes\AppDelegate.h" />
     <ClInclude Include="..\Classes\arch.h" />
     <ClInclude Include="..\Classes\assert_include.h" />
+    <ClInclude Include="..\Classes\file_helper.h" />
     <ClInclude Include="..\Classes\gl_helper.h" />
     <ClInclude Include="..\Classes\HelloWorldScene.h" />
+    <ClInclude Include="..\Classes\math_helper.h" />
     <ClInclude Include="..\Classes\singleton.h" />
     <ClInclude Include="..\Classes\stdafx.h" />
     <ClInclude Include="..\Classes\string_util.h" />
+    <ClInclude Include="..\Classes\template_lib.h" />
+    <ClInclude Include="..\Classes\template_lib.hpp" />
+    <ClInclude Include="..\Classes\tinyxml\tinystr.h" />
+    <ClInclude Include="..\Classes\tinyxml\tinyxml.h" />
+    <ClInclude Include="..\Classes\uncopyable.h" />
+    <ClInclude Include="..\Classes\vector.h" />
+    <ClInclude Include="..\Classes\xml_node.h" />
+    <ClInclude Include="..\Classes\xml_reader.h" />
+    <ClInclude Include="..\Classes\xml_writer.h" />
     <ClInclude Include="main.h" />
   </ItemGroup>
   <ItemGroup>

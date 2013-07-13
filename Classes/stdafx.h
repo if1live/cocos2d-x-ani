@@ -18,9 +18,11 @@
 #include <algorithm>
 #include <vector>
 #include <array>
+#include <unordered_map>
 
 #include "cocos2d.h"
 #include "glm/glm.hpp"
 #include "glm/ext.hpp"
+#include "tinyxml/tinyxml.h"
 
 #endif

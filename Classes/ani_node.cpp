@@ -52,9 +52,7 @@ void AniVertex::SetVertex(float x, float y, cocos2d::CCSpriteFrame *frame, Verte
 }
 
 AniNode::AniNode()
-    : alpha_(255), 
-    color_(ccWHITE),
-    rt_(NULL)
+    : rt_(NULL)
 {
 }
 
@@ -75,7 +73,7 @@ bool AniNode::initWithPrototype(AniPrototype *prototype)
 
 bool AniNode::initWithPrototype(AniPrototype *prototype, int tex_w, int tex_h)
 {
-    scheduleUpdate();
+	scheduleUpdate();
     //orig ani를 복제해서 ani로 대신쓴다. 프로토타입 패턴의 형태를 그냥 갖다쓰자
     //중간에 파서같은걸 추가로 거치는게 더 
     this->set_ani(new Ani(prototype->Create()));
@@ -206,10 +204,10 @@ void SimpleAniNode::SimpleDraw(Ani *ani)
     IUASSERT(ani != NULL);
     Ani::ResDictType &res_dict = ani->GetResourceDict();
 
-    vector<AniResource*> res_list;
+    vector<AniResource> res_list;
     for(auto it = res_dict.begin(), e = res_dict.end() ; it != e ; ++it) {
         if(it->second.visible() == true) {
-            res_list.push_back(&it->second);
+            res_list.push_back(*&it->second);
         }
     }
     quad_list.reserve(res_list.size());
@@ -218,7 +216,7 @@ void SimpleAniNode::SimpleDraw(Ani *ani)
 
     //visible인것에 대해서 그리기 준비하기
     for(auto it = res_list.begin(), e = res_list.end() ; it != e ; ++it) {
-        AniResource &res = *(*it);
+        AniResource &res = *it;
 
         const mat3 &matrix = res.mat();
         CCSpriteFrame *frame = res.frame();
@@ -269,6 +267,7 @@ void SimpleAniNode::SimpleDraw(Ani *ani)
     }
 
     ////////////////////////////////////
+
     CCSpriteFrame *frame = (res_dict.begin())->second.frame();
     IUASSERT(frame != NULL);
     GLuint tex_id = frame->getTexture()->getName();
@@ -284,8 +283,8 @@ void SimpleAniNode::SimpleDraw(Ani *ani)
     //색깔까지 지원에 넣으면 아작난다 -_- 좀 고생해서 추적해봐야될듯
     CCGLProgram *prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture);
     prog->use();
-    prog->setUniformForModelViewProjectionMatrix();
-    ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position | kCCVertexAttribFlag_TexCoords );
+	prog->setUniformsForBuiltins();
+	ccGLEnableVertexAttribs( kCCVertexAttribFlag_Position | kCCVertexAttribFlag_TexCoords);
 
     //깊이를 씹고 그려도 문제없다
     CCDirector::sharedDirector()->setDepthTest(false);
@@ -300,6 +299,9 @@ void SimpleAniNode::SimpleDraw(Ani *ani)
 
     CCDirector::sharedDirector()->setDepthTest(true);
     kmGLPopMatrix();
+
+	CHECK_GL_ERROR_DEBUG();
+
 }
 
 void SimpleAniNode::DrawOnMainRT()

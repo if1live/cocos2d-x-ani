@@ -13,6 +13,9 @@
     <Filter Include="support">
       <UniqueIdentifier>{3f0c51f9-5866-4864-8472-38b0c9f93d02}</UniqueIdentifier>
     </Filter>
+    <Filter Include="tinyxml">
+      <UniqueIdentifier>{ce12bf09-c740-4554-89e5-384878ed9f36}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -62,6 +65,39 @@
     </ClCompile>
     <ClCompile Include="..\Classes\string_util.cpp">
       <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tinyxml\tinyxmlerror.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tinyxml\tinyxmlparser.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tinyxml\tinystr.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\tinyxml\tinyxml.cpp">
+      <Filter>tinyxml</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\math_helper.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\file_helper.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\angle.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\xml_reader.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\xml_writer.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\xml_node.cpp">
+      <Filter>ani</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ani_sample_layer.cpp">
+      <Filter>Classes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +160,45 @@
     </ClInclude>
     <ClInclude Include="..\Classes\arch.h">
       <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\tinyxml\tinystr.h">
+      <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\tinyxml\tinyxml.h">
+      <Filter>tinyxml</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\math_helper.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\file_helper.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\vector.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\angle.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\xml_reader.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\xml_writer.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\xml_node.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\template_lib.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\template_lib.hpp">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\uncopyable.h">
+      <Filter>ani</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ani_sample_layer.h">
+      <Filter>Classes</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

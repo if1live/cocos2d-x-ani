@@ -46,6 +46,9 @@ struct AniResourceZSorter {
 	int operator()(const AniResource *a, const AniResource *b) {
 		return (a->z() < b->z());
 	}
+	int operator()(const AniResource &a, const AniResource &b) {
+		return (a.z() < b.z());
+	}
 };
 
 }

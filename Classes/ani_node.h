@@ -31,7 +31,7 @@ struct AniQuad {
 };
 
 
-class AniNode : public cocos2d::CCNode, public AniInterface, public cocos2d::CCRGBAProtocol {
+class AniNode : public AniInterface, public cocos2d::CCNodeRGBA {
 public:
     AniNode();
     virtual ~AniNode();
@@ -43,16 +43,6 @@ public:
 private:
     virtual void update(float dt);
     virtual void draw();
-
-    //rgba 구현부
-public:
-	virtual void setOpacityModifyRGB(bool bValue) {}
-	virtual bool isOpacityModifyRGB() { return false; }
-	
-	virtual void setOpacity(GLubyte opacity) { alpha_ = opacity; }
-	virtual GLubyte getOpacity(void) { return alpha_; }
-	virtual void setColor(const cocos2d::ccColor3B& color) { color_ = color; }
-	virtual const cocos2d::ccColor3B& color(void) { return color_; }
 
 	//ani 구현부
 public:
@@ -81,8 +71,6 @@ protected:
 	virtual void DrawOnMainRT() = 0;
 
 private:
-	cocos2d::ccColor3B color_;
-	unsigned char alpha_;
 	std::unique_ptr<Ani> ani_;
 
 	//알패를 적용하기 위해서 어쨋든 rt는 거쳐야한다

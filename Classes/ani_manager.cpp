@@ -59,8 +59,14 @@ AniParser AniManager::GetXmlParser()
 
 AniDeviceType AniManager::GetAniDeviceType()
 {
-    /*XXX
-    //장치의 해상도에 맞추서 어떤 애니를 쓸지 결정하기
+	//장치의 해상도에 맞추서 어떤 애니를 쓸지 결정하기
+	//cocos2d 2.x 공부없이 야매로 짜는거니까 실제 폰에 올릴떄는 다시 확인해봐야될듯
+	//여기에서 장치를 뭘로 결정하는가에 따라서
+	//glm::mat3 AniParser::Mat3ToMat4(const glm::mat3 &input, AniDeviceType dev_type)
+	//의 행렬 변환 함수가 달라진다
+
+
+	/*XXX
     int dev_code = Device::GetInstance().GetDeviceCode();
     AniDeviceType dev_type = kAniDeviceSD;
     switch(dev_code) {
@@ -82,7 +88,7 @@ AniDeviceType AniManager::GetAniDeviceType()
     }
     return dev_type;
     */
-    return kAniDeviceHD;
+	return kAniDeviceHD;
 }
 
 AniPrototype *AniManager::LoadXmlFile(const std::string &file)
