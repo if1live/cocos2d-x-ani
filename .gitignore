@@ -16,3 +16,7 @@
 *.sdf
 *.opensdf
 proj.win32/ipch/*
+proj.win32/Debug.win32/*
+proj.win32/*.user
+*.obj
+*.suo

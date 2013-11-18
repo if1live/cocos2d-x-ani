@@ -59,6 +59,8 @@ public:
 
     virtual void GoNextFrame() = 0;
     virtual bool IsEnd() const = 0;
+
+    virtual void reset() = 0;
 };
 
 class AniPrototype;
@@ -113,5 +115,9 @@ private:
     AniPlayParam play_param_;
 
     float remain_time_;	//다음프레임 갱신까지 남은 시간(sec). 이것으로 고정프레임 흉내내자
+
+public:
+    virtual void reset() { is_paused_ = false; remain_time_ = 0.0f; }
+    virtual int currentIndex() const { return curr_index_; }
 };
 }

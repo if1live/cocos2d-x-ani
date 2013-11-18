@@ -37,6 +37,19 @@ public:
 
 	virtual bool initWithPrototype(AniPrototype *prototype) = 0;
 	virtual bool initWithPrototype(AniPrototype *prototype, int w, int h) = 0;
+
+private:
+    int ani_tag_;
+    float tempo_;
+
+public:
+    virtual int getAniTag() const { return ani_tag_; }
+    virtual void setAniTag(int ani_tag) { ani_tag_ = ani_tag; }
+
+    virtual int currentIndex() const = 0;
+
+    virtual void setTempo(float tempo) { tempo_ = tempo; }
+    float tempo() { return tempo_; }
 };
 
 class SimpleAniNode : public AniNode {
@@ -66,6 +79,12 @@ public:
 
 	virtual void GoNextFrame() { ani_->GoNextFrame(); }
 	virtual bool IsEnd() const { return ani_->IsEnd(); }
+
+	/** @brief 애니 노드 재사용을 위해 값들을 초기화 한다. added by chorice */
+	void reset() { ani_->reset(); setAniTag(-1); setTempo(1.0f); }
+
+	/** @brief 애니메이션 현재 프레임 번호를 반환한다. added by chorice */
+	virtual int currentIndex() const { return ani_->currentIndex(); }
 
 	AniPrototype *prototype();
 
@@ -112,6 +131,8 @@ public:
 	virtual void GoNextFrame() { ani_node_->GoNextFrame(); }
 	virtual bool IsEnd() const { return ani_node_->IsEnd(); }
 	
+	virtual int currentIndex() const { return ani_node_->currentIndex(); }
+	virtual void reset();
 };
 
 }	// namespace sora
