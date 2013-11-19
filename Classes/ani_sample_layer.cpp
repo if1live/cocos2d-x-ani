@@ -65,7 +65,7 @@ bool AniSampleLayer::init()
 	this->addChild(pSprite, 0);
 
 	AniManager &ani_mgr = AniManager::GetInstance();
-	/*
+	
 	{
 		// center
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/prop01_movie-clip.xml");
@@ -140,7 +140,6 @@ bool AniSampleLayer::init()
 
 		ani_list_[kSpeedAni] = ani_node;
 	}
-	*/
 	{
 		// top
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/prop01_movie-clip.xml");
@@ -149,11 +148,11 @@ bool AniSampleLayer::init()
 		ani_node->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 		ani_node->setPosition(ani_node->getPosition() + ccp(0, +100));
 
-		ani_node->setOpacity(128);
+		ani_node->setOpacity(50);
 		ccColor3B color;
 		color.r = 255;
-		color.g = 128;
-		color.b = 128;
+		color.g = 255;
+		color.b = 255;
 		ani_node->setColor(color);
 
 		this->addChild(ani_node);
@@ -161,14 +160,14 @@ bool AniSampleLayer::init()
 
 		ani_list_[kRGBAAni] = ani_node;
 	}
-	
+
 	{
 		// right bottom
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/smoke1.xml");
 		AniNode *ani_node = new RGBAAniNode();
 		ani_node->initWithPrototype(ani_prototype_1, 256, 256);
 		ani_node->setPosition(ccp(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
-		//ani_node->setPosition(ani_node->getPosition() + ccp(+100, -100));
+		ani_node->setPosition(ani_node->getPosition() + ccp(+100, -100));
 
 		ani_node->setOpacity(128);
 		ccColor3B color;

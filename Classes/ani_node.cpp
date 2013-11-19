@@ -187,14 +187,11 @@ void SimpleAniNode::draw()
 
 	ccGLEnableVertexAttribs(kCCVertexAttribFlag_Position | kCCVertexAttribFlag_TexCoords);
 
-	glBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
-
 	AniQuad &first_quad = quad_list[0];
 	glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].x);
 	glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].s);
 	glDrawElements(GL_TRIANGLES, index_list.size(), GL_UNSIGNED_SHORT, &index_list[0]);
 
-	//CCDirector::sharedDirector()->setDepthTest(true);
 	kmGLPopMatrix();
 
 	CHECK_GL_ERROR_DEBUG();
@@ -220,7 +217,7 @@ bool RGBAAniNode::initWithPrototype(AniPrototype *prototype)
 bool RGBAAniNode::initWithPrototype(AniPrototype *prototype, int w, int h)
 {
 	scheduleUpdate();
-
+	
 	int tex_width = w * (int)CC_CONTENT_SCALE_FACTOR();
 	int tex_height = h * (int)CC_CONTENT_SCALE_FACTOR();
 	rt_ = CCRenderTexture::create(tex_width, tex_height);
@@ -233,6 +230,10 @@ bool RGBAAniNode::initWithPrototype(AniPrototype *prototype, int w, int h)
 
 	tex_width_ = tex_width;
 	tex_height_ = tex_height;
+
+	//쉐이더 미리 설정
+	CCGLProgram *prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureColor);
+	setShaderProgram(prog);
 
 	return true;
 }
@@ -252,10 +253,12 @@ void RGBAAniNode::draw()
 	}
 
 	rt_->beginWithClear(0.0f, 0.0f, 0.0f, 0.0f);
+
 	kmGLPushMatrix();
 	kmGLTranslatef(tex_width_ * 0.5f, tex_height_ * 0.5f, 0);
 	ani_node_->draw();
 	kmGLPopMatrix();
+
 	rt_->end();
 
 	CCSprite *sprite = rt_->getSprite();
