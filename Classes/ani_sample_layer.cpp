@@ -27,8 +27,7 @@ void AniSampleLayer::update(float dt)
 		if (pause_ani) {
 			if (pause_ani->IsPaused() == false) {
 				pause_ani->Pause();
-			}
-			else {
+			} else {
 				pause_ani->Resume();
 			}
 		}
@@ -38,8 +37,7 @@ void AniSampleLayer::update(float dt)
 			AniPlayParam param = speed_ani->GetPlayParam();
 			if (param.speed == 1.0f) {
 				param.speed = 0.5f;
-			}
-			else {
+			} else {
 				param.speed = 1.0f;
 			}
 			speed_ani->SetPlayParam(param);
@@ -65,7 +63,6 @@ bool AniSampleLayer::init()
 	this->addChild(pSprite, 0);
 
 	AniManager &ani_mgr = AniManager::GetInstance();
-	
 	{
 		// center
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/prop01_movie-clip.xml");
@@ -178,8 +175,25 @@ bool AniSampleLayer::init()
 
 		this->addChild(ani_node);
 		ani_node->release();
+	}
 
-		ani_list_[kSpeedAni] = ani_node;
+	{
+		// left top
+		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/ch_tutorial_finger01.xml");
+		AniNode *ani_node = new RGBAAniNode();
+		ani_node->initWithPrototype(ani_prototype_1, 256, 256);
+		ani_node->setPosition(ccp(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
+		ani_node->setPosition(ani_node->getPosition() + ccp(-80, +100));
+
+		ani_node->setOpacity(128);
+		ccColor3B color;
+		color.r = 255;
+		color.g = 255;
+		color.b = 255;
+		ani_node->setColor(color);
+
+		this->addChild(ani_node);
+		ani_node->release();
 	}
 	
 	return true;

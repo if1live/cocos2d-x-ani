@@ -32,7 +32,7 @@ struct AniQuad {
 
 class AniNode : public cocos2d::CCNodeRGBA, public AniInterface {
 public:
-	AniNode() {}
+	AniNode() : tempo_(1.0f) {}
 	virtual ~AniNode() {}
 
 	virtual bool initWithPrototype(AniPrototype *prototype) = 0;

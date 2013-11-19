@@ -174,6 +174,7 @@ void SimpleAniNode::draw()
 	IUASSERT(frame != NULL);
 	GLuint tex_id = frame->getTexture()->getName();
 	ccGLBindTexture2D(tex_id);
+	ccGLBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
 
 	//Remember, No Old GL.
 	//ani는 low-level이기떄문에 retina같은거 수동으로 통제해야됨
@@ -193,6 +194,7 @@ void SimpleAniNode::draw()
 	glDrawElements(GL_TRIANGLES, index_list.size(), GL_UNSIGNED_SHORT, &index_list[0]);
 
 	kmGLPopMatrix();
+	ccGLBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 	CHECK_GL_ERROR_DEBUG();
 	CC_INCREMENT_GL_DRAWS(1);
