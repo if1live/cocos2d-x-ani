@@ -127,10 +127,11 @@ bool AniSampleLayer::init()
 	{
 		// right top
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/prop01_movie-clip.xml");
-		AniNode *ani_node = new SimpleAniNode();
+		AniNode *ani_node = new SimpleAniNode(true);
 		ani_node->initWithPrototype(ani_prototype_1);
 		ani_node->setPosition(ccp(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
 		ani_node->setPosition(ani_node->getPosition() + ccp(+100, +100));
+		ani_node->setOpacity(40);
 
 		this->addChild(ani_node);
 		ani_node->release();

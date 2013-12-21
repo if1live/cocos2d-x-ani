@@ -61,7 +61,7 @@ SimpleAniNode::SimpleAniNode(bool alpha)
 	//쉐이더 미리 설정
 	CCGLProgram *prog = nullptr;
 	if (alpha) {
-		prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureA8Color);
+		prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureColor);
 	} else {
 		prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture);
 	}
@@ -211,7 +211,7 @@ void SimpleAniNode::draw()
 			AniQuad &quad = *it;
 			for (int i = 0; i < 4; i++) {
 				unsigned char a = this->getOpacity();
-				quad.vert[i].a = 128;
+				quad.vert[i].a = a;
 			}
 		}
 
