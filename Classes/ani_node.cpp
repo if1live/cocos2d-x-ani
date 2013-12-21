@@ -55,13 +55,17 @@ void AniVertex::SetVertex(float x, float y, cocos2d::CCSpriteFrame *frame, Verte
 	a = 255;
 }
 
-SimpleAniNode::SimpleAniNode(bool alpha)
+SimpleAniNode::SimpleAniNode(bool alpha, bool ignore_color)
 : alpha_(alpha)
 {
 	//쉐이더 미리 설정
 	CCGLProgram *prog = nullptr;
 	if (alpha) {
-		prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureColor);
+		if (ignore_color) {
+			prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureA8Color);
+		} else {
+			prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureColor);
+		}
 	} else {
 		prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture);
 	}
@@ -149,12 +153,15 @@ void SimpleAniNode::draw()
 
 		//색깔 정보 계산하기
 		const AniColor4ub &color = res.color();
+		const auto &node_color = this->getColor();
+		unsigned char node_alpha = this->getOpacity();
+
 		for (int i = 0; i < 4; i++) {
 			AniVertex &vert = quad.vert[i];
-			vert.r = color.r;
-			vert.g = color.g;
-			vert.b = color.b;
-			vert.a = color.a;
+			vert.r = (unsigned char)(color.r * node_color.r / 255.0f);
+			vert.g = (unsigned char)(color.g * node_color.g / 255.0f);
+			vert.b = (unsigned char)(color.b * node_color.b / 255.0f);
+			vert.a = (unsigned char)(color.a * node_alpha / 255.0f);
 		}
 
 		int orig_quad_size = quad_list.size();
@@ -204,17 +211,6 @@ void SimpleAniNode::draw()
 		glDrawElements(GL_TRIANGLES, index_list.size(), GL_UNSIGNED_SHORT, &index_list[0]);
 	} else {
 		ccGLEnableVertexAttribs(kCCVertexAttribFlag_PosColorTex);
-
-		auto it = quad_list.begin();
-		auto endit = quad_list.end();
-		for (; it != endit; ++it) {
-			AniQuad &quad = *it;
-			for (int i = 0; i < 4; i++) {
-				unsigned char a = this->getOpacity();
-				quad.vert[i].a = a;
-			}
-		}
-
 		AniQuad &first_quad = quad_list[0];
 		glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].x);
 		glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].s);

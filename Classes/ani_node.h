@@ -54,7 +54,7 @@ public:
 
 class SimpleAniNode : public AniNode {
 public:
-    SimpleAniNode(bool alpha=false);
+    SimpleAniNode(bool alpha=false, bool ignore_color=false);
     virtual ~SimpleAniNode();
 
 	virtual bool initWithPrototype(AniPrototype *prototype, int w, int h);
