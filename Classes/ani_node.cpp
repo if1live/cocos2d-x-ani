@@ -55,8 +55,18 @@ void AniVertex::SetVertex(float x, float y, cocos2d::CCSpriteFrame *frame, Verte
 	a = 255;
 }
 
-SimpleAniNode::SimpleAniNode()
+SimpleAniNode::SimpleAniNode(bool alpha)
+: alpha_(alpha)
 {
+	//쉐이더 미리 설정
+	CCGLProgram *prog = nullptr;
+	if (alpha) {
+		prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTextureA8Color);
+	} else {
+		prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture);
+	}
+	CCAssert(prog != nullptr, "prog need");
+	setShaderProgram(prog);
 }
 
 SimpleAniNode::~SimpleAniNode()
@@ -69,10 +79,6 @@ bool SimpleAniNode::initWithPrototype(AniPrototype *prototype, int w, int h)
 }
 bool SimpleAniNode::initWithPrototype(AniPrototype *prototype)
 {
-	//쉐이더 미리 설정
-	CCGLProgram *prog = CCShaderCache::sharedShaderCache()->programForKey(kCCShader_PositionTexture);
-	setShaderProgram(prog);
-
 	scheduleUpdate();
 
 	//orig ani를 복제해서 ani로 대신쓴다. 프로토타입 패턴의 형태를 그냥 갖다쓰자
@@ -174,7 +180,10 @@ void SimpleAniNode::draw()
 	IUASSERT(frame != NULL);
 	GLuint tex_id = frame->getTexture()->getName();
 	ccGLBindTexture2D(tex_id);
-	ccGLBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+
+	if (alpha_ == false) {
+		ccGLBlendFunc(GL_ONE, GL_ONE_MINUS_SRC_ALPHA);
+	}
 
 	//Remember, No Old GL.
 	//ani는 low-level이기떄문에 retina같은거 수동으로 통제해야됨
@@ -186,12 +195,32 @@ void SimpleAniNode::draw()
 	//float scale = CCDirector::sharedDirector()->getContentScaleFactor();
 	//kmGLScalef(scale, scale, 1);
 
-	ccGLEnableVertexAttribs(kCCVertexAttribFlag_Position | kCCVertexAttribFlag_TexCoords);
+	if (alpha_ == false) {
+		ccGLEnableVertexAttribs(kCCVertexAttribFlag_Position | kCCVertexAttribFlag_TexCoords);
 
-	AniQuad &first_quad = quad_list[0];
-	glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].x);
-	glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].s);
-	glDrawElements(GL_TRIANGLES, index_list.size(), GL_UNSIGNED_SHORT, &index_list[0]);
+		AniQuad &first_quad = quad_list[0];
+		glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].x);
+		glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].s);
+		glDrawElements(GL_TRIANGLES, index_list.size(), GL_UNSIGNED_SHORT, &index_list[0]);
+	} else {
+		ccGLEnableVertexAttribs(kCCVertexAttribFlag_PosColorTex);
+
+		auto it = quad_list.begin();
+		auto endit = quad_list.end();
+		for (; it != endit; ++it) {
+			AniQuad &quad = *it;
+			for (int i = 0; i < 4; i++) {
+				unsigned char a = this->getOpacity();
+				quad.vert[i].a = 128;
+			}
+		}
+
+		AniQuad &first_quad = quad_list[0];
+		glVertexAttribPointer(kCCVertexAttrib_Position, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].x);
+		glVertexAttribPointer(kCCVertexAttrib_TexCoords, 2, GL_FLOAT, GL_FALSE, sizeof(AniVertex), &first_quad.vert[0].s);
+		glVertexAttribPointer(kCCVertexAttrib_Color, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(AniVertex), &first_quad.vert[0].r);
+		glDrawElements(GL_TRIANGLES, index_list.size(), GL_UNSIGNED_SHORT, &index_list[0]);
+	}
 
 	kmGLPopMatrix();
 	ccGLBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

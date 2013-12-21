@@ -54,7 +54,7 @@ public:
 
 class SimpleAniNode : public AniNode {
 public:
-    SimpleAniNode();
+    SimpleAniNode(bool alpha=false);
     virtual ~SimpleAniNode();
 
 	virtual bool initWithPrototype(AniPrototype *prototype, int w, int h);
@@ -94,6 +94,7 @@ protected:
 
 private:
 	std::unique_ptr<Ani> ani_;
+	bool alpha_;
 };
 
 class RGBAAniNode : public AniNode {

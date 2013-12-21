@@ -161,7 +161,7 @@ bool AniSampleLayer::init()
 	{
 		// right bottom
 		AniPrototype *ani_prototype_1 = ani_mgr.LoadFile("ani/smoke1.xml");
-		AniNode *ani_node = new RGBAAniNode();
+		AniNode *ani_node = new SimpleAniNode(true);
 		ani_node->initWithPrototype(ani_prototype_1, 256, 256);
 		ani_node->setPosition(ccp(visibleSize.width / 2 + origin.x, visibleSize.height / 2 + origin.y));
 		ani_node->setPosition(ani_node->getPosition() + ccp(+100, -100));
